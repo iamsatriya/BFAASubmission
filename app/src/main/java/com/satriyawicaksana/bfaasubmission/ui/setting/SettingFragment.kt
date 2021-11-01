@@ -11,11 +11,11 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.satriyawicaksana.bfaasubmission.MainViewModel
+import com.satriyawicaksana.bfaasubmission.dataStore
 import com.satriyawicaksana.bfaasubmission.databinding.FragmentSettingBinding
 import com.satriyawicaksana.bfaasubmission.utils.SettingPreference
 import com.satriyawicaksana.bfaasubmission.utils.ViewModelFactory
-
-private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name="settings")
 
 class SettingFragment : Fragment() {
 
@@ -31,7 +31,7 @@ class SettingFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-//        settingViewModel = ViewModelProvider(this).get(SettingViewModel::class.java)
+        settingViewModel = ViewModelProvider(this).get(SettingViewModel::class.java)
 
         _binding = FragmentSettingBinding.inflate(inflater, container, false)
         return binding.root
@@ -40,31 +40,15 @@ class SettingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        val preference = context?.dataStore?.let { SettingPreference.getInstance(it) }
-        val preference = SettingPreference.getInstance(context?.dataStore)
-        val settingViewModel = ViewModelProvider(this, ViewModelFactory(preference)).get(SettingViewModel::class.java)
-        settingViewModel.getThemeSettings()?.observe(viewLifecycleOwner, { isDarkMode: Boolean ->
-            if (isDarkMode) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                binding.switchTheme.isChecked = true
-            } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                binding.switchTheme.isChecked = false
-            }
+        val preference = SettingPreference.getInstance(requireContext().dataStore)
+
+        val mainViewModel = ViewModelProvider(this, ViewModelFactory(preference)).get(MainViewModel::class.java)
+        mainViewModel.getThemeSetting().observe(viewLifecycleOwner, { isDarkMode ->
+            binding.switchTheme.isChecked = isDarkMode
         })
         binding.switchTheme.setOnCheckedChangeListener { _, isChecked ->
-            settingViewModel.saveThemeSetting(isChecked)
+            mainViewModel.saveThemeSetting(isChecked)
         }
-
-//        binding.switchTheme.setOnCheckedChangeListener { _, isChecked ->
-//            if (isChecked) {
-//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-//                binding.switchTheme.isChecked = true
-//            } else {
-//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-//                binding.switchTheme.isChecked = false
-//            }
-//        }
     }
 
     override fun onDestroyView() {

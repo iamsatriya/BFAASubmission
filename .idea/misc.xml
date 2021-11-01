@@ -3,9 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/satri/StudioProjects/BFAASubmission/app/src/main/res/drawable-v24/ic_user_not_found.xml" value="0.13425925925925927" />
         <entry key="..\:/Users/satri/StudioProjects/BFAASubmission/app/src/main/res/layout/activity_main.xml" value="0.2957427536231884" />
         <entry key="..\:/Users/satri/StudioProjects/BFAASubmission/app/src/main/res/layout/fragment_home.xml" value="0.17806484295845998" />
+        <entry key="..\:/Users/satri/StudioProjects/BFAASubmission/app/src/main/res/layout/fragment_search.xml" value="0.25" />
         <entry key="..\:/Users/satri/StudioProjects/BFAASubmission/app/src/main/res/layout/fragment_setting.xml" value="0.28894927536231885" />
+        <entry key="..\:/Users/satri/StudioProjects/BFAASubmission/app/src/main/res/layout/user_search_result.xml" value="0.25" />
       </map>
     </option>
   </component>
