@@ -1,11 +1,15 @@
 package com.satriyawicaksana.bfaasubmission.ui.search
 
+import android.content.Context
+import android.content.Intent
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.satriyawicaksana.bfaasubmission.pojo.ResponseSearch
+import com.satriyawicaksana.bfaasubmission.pojo.ItemsItem
+import com.satriyawicaksana.bfaasubmission.pojo.ResponseDetailUser
 import com.satriyawicaksana.bfaasubmission.pojo.ResponseSearchUser
+import com.satriyawicaksana.bfaasubmission.screen.userprofile.DetailProfileActivity
 import com.satriyawicaksana.bfaasubmission.utils.ApiConfig
 import retrofit2.Call
 import retrofit2.Callback
@@ -16,11 +20,11 @@ class SearchViewModel : ViewModel() {
         private val TAG = SearchViewModel::class.java.simpleName
     }
 
-    private val _listUser = MutableLiveData<ArrayList<ResponseSearch>>()
-    val listUser: LiveData<ArrayList<ResponseSearch>> = _listUser
+    private val _listUser = MutableLiveData<ArrayList<ItemsItem>>()
+    val listUser: LiveData<ArrayList<ItemsItem>> = _listUser
 
     fun setListUser(username: String) {
-        val list = ArrayList<ResponseSearch>()
+        val list = ArrayList<ItemsItem>()
         val client = ApiConfig.getApiService().getUserList(username)
         client.enqueue(object : Callback<ResponseSearchUser> {
             override fun onResponse(
@@ -32,7 +36,7 @@ class SearchViewModel : ViewModel() {
                     if (responseBody != null) {
                         for (user in responseBody.items) {
                             val newUser =
-                                ResponseSearch(user.avatarUrl, user.htmlUrl, user.id, user.login)
+                                ItemsItem(user.avatarUrl, user.htmlUrl, user.id, user.login)
                             list.add(newUser)
 //                            _listUser.value?.add(newUser)
                         }
@@ -49,4 +53,26 @@ class SearchViewModel : ViewModel() {
 
         })
     }
+//
+//    fun openUserDetail(username: String, context: Context) {
+//        val client = ApiConfig.getApiService().getUserDetail(username)
+//        client.enqueue(object : Callback<ResponseDetailUser> {
+//            override fun onResponse(
+//                call: Call<ResponseDetailUser>,
+//                response: Response<ResponseDetailUser>
+//            ) {
+//                if (response.isSuccessful) {
+//                    val mIntent = Intent(context, DetailProfileActivity::class.java)
+//                    mIntent.putExtra(DetailProfileActivity.EXTRA_USER, response.body())
+//                    context.startActivity(mIntent)
+//                } else {
+//                    Log.e(TAG, "onResponse: ${response.message()}")
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<ResponseDetailUser>, t: Throwable) {
+//                Log.e(TAG, "onFailure: ${t.message}")
+//            }
+//        })
+//    }
 }

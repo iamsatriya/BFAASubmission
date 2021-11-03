@@ -4,4 +4,9 @@
     <string name="title_search">Search</string>
     <string name="title_setting">Setting</string>
     <string name="search_hint">Who are you looking for?</string>
+    <string name="repository">Repository</string>
+    <string name="unknown">Unknown</string>
+    <string name="tab_title_1">Followers</string>
+    <string name="tab_title_2">Following</string>
+    <string name="your_favorites">Your favorites!</string>
 </resources>

@@ -5,26 +5,26 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.satriyawicaksana.bfaasubmission.databinding.UserSearchResultBinding
-import com.satriyawicaksana.bfaasubmission.pojo.ResponseSearch
+import com.satriyawicaksana.bfaasubmission.pojo.ItemsItem
 
-class SearchResultAdapter(private val listUser: ArrayList<ResponseSearch>): RecyclerView.Adapter<SearchResultAdapter.SearchResultViewHolder>() {
-    private var onItemCliclCallback: OnItemCliclCallback? = null
+class SearchResultAdapter(private val listUser: ArrayList<ItemsItem>): RecyclerView.Adapter<SearchResultAdapter.SearchResultViewHolder>() {
+    private var onItemClickCallback: OnItemClickCallback? = null
     inner class SearchResultViewHolder(private val binding: UserSearchResultBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(user: ResponseSearch){
+        fun bind(user: ItemsItem){
             with(binding){
                 civProfileImage.load(user.avatarUrl)
                 tvUsername.text = user.login
-                itemView.setOnClickListener{onItemCliclCallback?.onItemClicked(user)}
+                itemView.setOnClickListener{onItemClickCallback?.onItemClicked(user)}
             }
         }
     }
 
-    fun setOnItemClickCallback(onItemCliclCallback: OnItemCliclCallback) {
-        this.onItemCliclCallback = onItemCliclCallback
+    fun setOnItemClickCallback(onItemCliclCallback: OnItemClickCallback) {
+        this.onItemClickCallback = onItemCliclCallback
     }
 
-    interface OnItemCliclCallback {
-        fun onItemClicked(user: ResponseSearch)
+    interface OnItemClickCallback {
+        fun onItemClicked(user: ItemsItem)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchResultViewHolder {

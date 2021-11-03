@@ -1,6 +1,8 @@
 package com.satriyawicaksana.bfaasubmission.pojo
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
 data class ResponseSearchUser(
 
@@ -14,6 +16,7 @@ data class ResponseSearchUser(
 	val items: List<ItemsItem>
 )
 
+@Parcelize
 data class ItemsItem(
 
 	@field:SerializedName("avatar_url")
@@ -27,4 +30,4 @@ data class ItemsItem(
 
 	@field:SerializedName("login")
 	val login: String
-)
+): Parcelable

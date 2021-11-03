@@ -1,7 +1,10 @@
 package com.satriyawicaksana.bfaasubmission.pojo
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class ResponseDetailUser(
 
 	@field:SerializedName("followers")
@@ -17,13 +20,13 @@ data class ResponseDetailUser(
 	val following: Int,
 
 	@field:SerializedName("name")
-	val name: Any,
+	val name: String?,
 
 	@field:SerializedName("company")
-	val company: Any,
+	val company: String?,
 
 	@field:SerializedName("location")
-	val location: Any,
+	val location: String?,
 
 	@field:SerializedName("id")
 	val id: Int,
@@ -35,5 +38,5 @@ data class ResponseDetailUser(
 	val login: String,
 
 	@field:SerializedName("email")
-	val email: Any
-)
+	val email: String?
+):Parcelable
