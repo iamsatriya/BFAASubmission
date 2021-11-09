@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -134,14 +135,15 @@ class SearchFragment : Fragment() {
                 if (response.isSuccessful) {
                     val mIntent = Intent(context, DetailProfileActivity::class.java)
                     mIntent.putExtra(DetailProfileActivity.EXTRA_USER, response.body())
+                    mIntent.putExtra(DetailProfileActivity.EXTRA_CALLER, DetailProfileActivity.SEARCH_FRAGMENT_ID)
                     context?.startActivity(mIntent)
                 } else {
-                    Log.e(TAG, "onResponse: ${response.message()}")
+                    Toast.makeText(requireContext(), "Sorry! ${response.message()}", Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<ResponseDetailUser>, t: Throwable) {
-                Log.e(TAG, "onFailure: ${t.message}")
+                Toast.makeText(requireContext(), "Sorry ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
     }

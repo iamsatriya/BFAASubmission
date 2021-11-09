@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.satriyawicaksana.bfaasubmission.MainViewModel
 import com.satriyawicaksana.bfaasubmission.screen.userprofile.DetailProfileViewModel
+import com.satriyawicaksana.bfaasubmission.ui.favorite.FavoriteViewModel
 import com.satriyawicaksana.bfaasubmission.ui.setting.SettingViewModel
 import java.lang.IllegalArgumentException
 
@@ -39,8 +40,8 @@ class FavoriteViewModelFactory private constructor(private val mApplication: App
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(DetailProfileViewModel::class.java)){
             return DetailProfileViewModel(mApplication) as T
-        } else if (modelClass.isAssignableFrom(FavoriteViewModelFactory::class.java)){
-            return FavoriteViewModelFactory(mApplication) as T
+        } else if (modelClass.isAssignableFrom(FavoriteViewModel::class.java)){
+            return FavoriteViewModel(mApplication) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
     }

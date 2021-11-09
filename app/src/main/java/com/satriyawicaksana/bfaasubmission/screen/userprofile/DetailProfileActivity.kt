@@ -17,6 +17,9 @@ import com.satriyawicaksana.bfaasubmission.utils.FavoriteViewModelFactory
 class DetailProfileActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_USER = "extra_user"
+        const val EXTRA_CALLER = "extra_caller"
+        const val FAVORITE_FRAGMENT_ID = 100
+        const val SEARCH_FRAGMENT_ID = 101
         private val TAB_TITLES = intArrayOf(
             R.string.tab_title_1,
             R.string.tab_title_2,
@@ -25,9 +28,8 @@ class DetailProfileActivity : AppCompatActivity() {
 
     private var _binding: ActivityDetailProfileBinding? = null
     private val binding get() = _binding!!
-
-    //    private val viewModel: DetailProfileViewModel by viewModels()
     private lateinit var viewModel: DetailProfileViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityDetailProfileBinding.inflate(layoutInflater)
@@ -35,15 +37,12 @@ class DetailProfileActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         viewModel = obtainViewModel(this@DetailProfileActivity)
-//        viewModel = ViewModelProvider(this).get(DetailProfileViewModel::class.java)
 
         val user = intent.getParcelableExtra<ResponseDetailUser>(EXTRA_USER) as ResponseDetailUser
         viewModel.setUser(user)
         viewModel.userDetail.observe(this, { users ->
             if (users != null) {
                 setProfile(users)
-            } else {
-                displayNullUser()
             }
         })
         val sectionPageAdapter = SectionPageAdapter(this)
@@ -51,13 +50,41 @@ class DetailProfileActivity : AppCompatActivity() {
         TabLayoutMediator(binding.tlFollow, binding.vpFollow) { tab, position ->
             tab.text = resources.getString(TAB_TITLES[position])
         }.attach()
+
+        setFavoriteButton()
+    }
+
+    private fun setFavoriteButton() {
+        val buttonCode = intent.getIntExtra(EXTRA_CALLER, 0)
+        when (buttonCode) {
+            FAVORITE_FRAGMENT_ID -> {
+                binding.btnFavorite.setImageResource(R.drawable.ic_baseline_remove_circle_24)
+            }
+            SEARCH_FRAGMENT_ID -> {
+                binding.btnFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
+            }
+        }
         binding.btnFavorite.setOnClickListener {
-            viewModel.insert()
-            Toast.makeText(
-                this,
-                "${viewModel.userDetail.value?.login} added to favorites",
-                Toast.LENGTH_SHORT
-            ).show()
+            when (buttonCode) {
+                SEARCH_FRAGMENT_ID -> {
+                    viewModel.insert()
+                    binding.btnFavorite.setImageResource(R.drawable.ic_baseline_remove_circle_24)
+                    Toast.makeText(
+                        this,
+                        "${viewModel.userDetail.value?.login} added to favorites",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                FAVORITE_FRAGMENT_ID -> {
+                    viewModel.delete()
+                    binding.btnFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
+                    Toast.makeText(
+                        this,
+                        "${viewModel.userDetail.value?.login} removed from favorites",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
         }
     }
 
@@ -69,43 +96,15 @@ class DetailProfileActivity : AppCompatActivity() {
         ).get(DetailProfileViewModel::class.java)
     }
 
-    private fun displayNullUser() {
-        TODO("Not yet implemented")
-    }
-
     private fun setProfile(user: ResponseDetailUser) {
         binding.profileImage.load(user.avatarUrl)
         binding.tvPublicRepo.text = user.publicRepos.toString()
+        binding.tvLogin.text = user.login
 
-//        binding.tvFullName.text = user.name ?: "Unknown"
-//        binding.tvLocation.text = user.location ?: "Unknown"
-//        binding.tvOffice.text = user.company ?: "Unknown"
-//        binding.tvEmail.text = user.email ?: "Unknown"
-//        binding.tvLogin.text = user.login
-        checkNullValue(binding.tvLogin, user.login)
-        checkNullValue(binding.tvFullName, user.name)
-        checkNullValue(binding.tvOffice, user.company)
-        checkNullValue(binding.tvLocation, user.location)
-        checkNullValue(binding.tvEmail, user.email)
-    }
-
-    private fun checkNullValue(textView: TextView, text: String?) {
-        textView.text = text ?: "Unknown"
-//        if (text != null) {
-//            textView.text = text
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//                textView.setTextAppearance(R.style.TextAppearance_AppCompat_Subhead)
-//            } else {
-//                textView.setTextAppearance(this, R.style.TextAppearance_AppCompat_Subhead)
-//            }
-//        }else{
-//            textView.setText(R.string.unknown)
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//                textView.setTextAppearance(R.style.TextAppearance_AppCompat_Body1)
-//            } else {
-//                textView.setTextAppearance(this, R.style.TextAppearance_AppCompat_Body1)
-//            }
-//        }
+        binding.tvFullName.text = user.name ?: "Unknown"
+        binding.tvLocation.text = user.location ?: "Unknown"
+        binding.tvOffice.text = user.company ?: "Unknown"
+        binding.tvEmail.text = user.email ?: "Unknown"
     }
 
     override fun onDestroy() {

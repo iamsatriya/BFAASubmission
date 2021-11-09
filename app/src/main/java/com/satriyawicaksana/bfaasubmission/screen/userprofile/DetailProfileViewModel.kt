@@ -26,44 +26,25 @@ class DetailProfileViewModel(application: Application) : ViewModel() {
     private var _listFollowing = MutableLiveData<ArrayList<ItemsItem>>()
     val listFollowing: LiveData<ArrayList<ItemsItem>> = _listFollowing
 
-//    private val favoriteDao: FavoriteDao by lazy {
-//        FavoriteDatabase.getDatabase(application).favoriteDao()
-//    }
-
-
     private val mFavoriteUserRepository: FavoriteRepository =
         FavoriteRepository(application)
-
-//    fun insert(favoriteUser: FavoriteUser) = viewModelScope.launch {
-//        mFavoriteUserRepository.insert(favoriteUser)
-//    }
 
     fun insert() {
         val favoriteUser =
             Favorite(
                 _userDetail.value?.login!!,
                 _userDetail.value?.avatarUrl
-                //            id = 0,
-                //            avatarUrl = _userDetail.value?.avatarUrl,
-                //            login = _userDetail.value?.login,
-                //            publicRepos = _userDetail.value?.publicRepos,
-                //            name = _userDetail.value?.name,
-                //            location = _userDetail.value?.location,
-                //            company = _userDetail.value?.company,
-                //            email = _userDetail.value?.email,
-                //            followers = _userDetail.value?.followers ?: 0,
-                //            following = _userDetail.value?.following ?: 0,
-                //            htmlUrl = _userDetail.value?.htmlUrl ?: "Unknown"
             )
-
         mFavoriteUserRepository.insert(favoriteUser)
-        Log.e("INSERT", "insert: $favoriteUser")
+    }
 
-//        viewModelScope.launch {
-//            if (favoriteUser != null) {
-//                mFavoriteUserRepository.insert(favoriteUser)
-//            }
-//        }
+    fun delete() {
+        val favoriteUser =
+            Favorite(
+                _userDetail.value?.login!!,
+                _userDetail.value?.avatarUrl
+            )
+        mFavoriteUserRepository.delete(favoriteUser)
     }
 
     private fun fetchFollower() {
