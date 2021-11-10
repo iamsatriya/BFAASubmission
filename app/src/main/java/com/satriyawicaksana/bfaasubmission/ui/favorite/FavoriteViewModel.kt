@@ -2,7 +2,6 @@ package com.satriyawicaksana.bfaasubmission.ui.favorite
 
 import android.app.Application
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.satriyawicaksana.bfaasubmission.database.Favorite
 import com.satriyawicaksana.bfaasubmission.repository.FavoriteRepository

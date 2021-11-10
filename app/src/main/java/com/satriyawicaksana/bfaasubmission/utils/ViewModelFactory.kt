@@ -6,8 +6,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.satriyawicaksana.bfaasubmission.MainViewModel
 import com.satriyawicaksana.bfaasubmission.screen.userprofile.DetailProfileViewModel
 import com.satriyawicaksana.bfaasubmission.ui.favorite.FavoriteViewModel
-import com.satriyawicaksana.bfaasubmission.ui.setting.SettingViewModel
-import java.lang.IllegalArgumentException
 
 class ViewModelFactory(private val preference: SettingPreference) :
     ViewModelProvider.NewInstanceFactory() {

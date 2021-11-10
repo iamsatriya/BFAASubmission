@@ -49,8 +49,7 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        searchViewModel.setListUser("satriya")
-        binding.etSearchUser.addTextChangedListener(object : TextWatcher{
+        binding.etSearchUser.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
             }
@@ -61,7 +60,7 @@ class SearchFragment : Fragment() {
 
             override fun afterTextChanged(p0: Editable?) {
                 val username = p0.toString().trim()
-                if (username.isNotEmpty()){
+                if (username.isNotEmpty()) {
                     showRecyclerCardView(view.context, ArrayList())
                     showLoading(true)
                     searchViewModel.setListUser(username)
@@ -84,18 +83,19 @@ class SearchFragment : Fragment() {
                 showRecyclerCardView(requireContext(), ArrayList())
                 showUserNotFound(true)
 
-                Log.e(TAG, "not null: $userList", )
+                Log.e(TAG, "not null: $userList")
             } else {
                 showRecyclerCardView(requireContext(), userList)
                 showLoading(false)
                 showUserNotFound(false)
-                Log.e(TAG, "not null: $userList", )
+                Log.e(TAG, "not null: $userList")
             }
         })
     }
 
     private fun closeSoftKeyboard() {
-        val imm = view?.context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm =
+            view?.context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view?.windowToken, 0)
     }
 
@@ -135,10 +135,17 @@ class SearchFragment : Fragment() {
                 if (response.isSuccessful) {
                     val mIntent = Intent(context, DetailProfileActivity::class.java)
                     mIntent.putExtra(DetailProfileActivity.EXTRA_USER, response.body())
-                    mIntent.putExtra(DetailProfileActivity.EXTRA_CALLER, DetailProfileActivity.SEARCH_FRAGMENT_ID)
+                    mIntent.putExtra(
+                        DetailProfileActivity.EXTRA_CALLER,
+                        DetailProfileActivity.SEARCH_FRAGMENT_ID
+                    )
                     context?.startActivity(mIntent)
                 } else {
-                    Toast.makeText(requireContext(), "Sorry! ${response.message()}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Sorry! ${response.message()}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 

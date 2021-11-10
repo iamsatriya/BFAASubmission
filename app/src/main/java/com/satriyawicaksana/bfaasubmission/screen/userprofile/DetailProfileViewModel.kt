@@ -2,16 +2,14 @@ package com.satriyawicaksana.bfaasubmission.screen.userprofile
 
 import android.app.Application
 import android.util.Log
-import androidx.lifecycle.*
-import androidx.room.Room
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.satriyawicaksana.bfaasubmission.database.Favorite
-import com.satriyawicaksana.bfaasubmission.database.FavoriteDao
-import com.satriyawicaksana.bfaasubmission.database.FavoriteDatabase
 import com.satriyawicaksana.bfaasubmission.pojo.ItemsItem
 import com.satriyawicaksana.bfaasubmission.pojo.ResponseDetailUser
 import com.satriyawicaksana.bfaasubmission.repository.FavoriteRepository
 import com.satriyawicaksana.bfaasubmission.utils.ApiConfig
-import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -47,6 +45,10 @@ class DetailProfileViewModel(application: Application) : ViewModel() {
         mFavoriteUserRepository.delete(favoriteUser)
     }
 
+    fun getAllFavorite() {
+
+    }
+
     private fun fetchFollower() {
         val client = ApiConfig.getApiService().getUserFollower(_userDetail.value?.login)
         client.enqueue(object : Callback<ArrayList<ItemsItem>> {
@@ -58,7 +60,7 @@ class DetailProfileViewModel(application: Application) : ViewModel() {
             }
 
             override fun onFailure(call: Call<ArrayList<ItemsItem>>, t: Throwable) {
-                TODO("Not yet implemented")
+                Log.e("DetailViewModel", "onFailure: ${t.message}")
             }
         })
     }
@@ -74,7 +76,7 @@ class DetailProfileViewModel(application: Application) : ViewModel() {
             }
 
             override fun onFailure(call: Call<ArrayList<ItemsItem>>, t: Throwable) {
-                TODO("Not yet implemented")
+                Log.e("DetailViewModel", "onFailure: ${t.message}")
             }
 
         })

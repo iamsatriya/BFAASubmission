@@ -2,7 +2,6 @@ package com.satriyawicaksana.bfaasubmission.ui.favorite
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +15,6 @@ import com.satriyawicaksana.bfaasubmission.database.Favorite
 import com.satriyawicaksana.bfaasubmission.databinding.FragmentFavoriteBinding
 import com.satriyawicaksana.bfaasubmission.pojo.ResponseDetailUser
 import com.satriyawicaksana.bfaasubmission.screen.userprofile.DetailProfileActivity
-import com.satriyawicaksana.bfaasubmission.ui.search.SearchFragment
 import com.satriyawicaksana.bfaasubmission.utils.ApiConfig
 import com.satriyawicaksana.bfaasubmission.utils.FavoriteViewModelFactory
 import retrofit2.Call
@@ -28,9 +26,6 @@ class FavoriteFragment : Fragment() {
     private lateinit var favoriteViewModel: FavoriteViewModel
     private var _binding: FragmentFavoriteBinding? = null
     private lateinit var adapter: FavoriteAdapter
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -38,7 +33,6 @@ class FavoriteFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-//        favoriteViewModel = ViewModelProvider(this).get(FavoriteViewModel::class.java)
         favoriteViewModel = obtainViewModel(requireActivity() as AppCompatActivity)
         _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
         return binding.root

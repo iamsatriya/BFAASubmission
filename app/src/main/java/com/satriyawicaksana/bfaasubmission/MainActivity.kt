@@ -2,7 +2,6 @@ package com.satriyawicaksana.bfaasubmission
 
 import android.content.Context
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.datastore.core.DataStore
@@ -13,6 +12,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.satriyawicaksana.bfaasubmission.databinding.ActivityMainBinding
 import com.satriyawicaksana.bfaasubmission.utils.SettingPreference
 import com.satriyawicaksana.bfaasubmission.utils.ViewModelFactory

@@ -1,19 +1,14 @@
 package com.satriyawicaksana.bfaasubmission.ui.follower
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.satriyawicaksana.bfaasubmission.R
 import com.satriyawicaksana.bfaasubmission.adapter.SearchResultAdapter
 import com.satriyawicaksana.bfaasubmission.databinding.FollowerFragmentBinding
-import com.satriyawicaksana.bfaasubmission.pojo.ItemsItem
 import com.satriyawicaksana.bfaasubmission.screen.userprofile.DetailProfileViewModel
 
 class FollowerFragment : Fragment() {

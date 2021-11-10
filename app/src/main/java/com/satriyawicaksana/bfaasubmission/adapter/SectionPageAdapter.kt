@@ -1,10 +1,8 @@
 package com.satriyawicaksana.bfaasubmission.adapter
 
-import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.satriyawicaksana.bfaasubmission.pojo.ItemsItem
 import com.satriyawicaksana.bfaasubmission.ui.follower.FollowerFragment
 import com.satriyawicaksana.bfaasubmission.ui.following.FollowingFragment
 
