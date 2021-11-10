@@ -49,41 +49,48 @@ class DetailProfileActivity : AppCompatActivity() {
             tab.text = resources.getString(TAB_TITLES[position])
         }.attach()
 
-        setFavoriteButton()
     }
 
-    private fun setFavoriteButton() {
+    private fun setFavoriteButton(username: String) {
         val buttonCode = intent.getIntExtra(EXTRA_CALLER, 0)
-        when (buttonCode) {
-            FAVORITE_FRAGMENT_ID -> {
-                binding.btnFavorite.setImageResource(R.drawable.ic_baseline_remove_circle_24)
-            }
-            SEARCH_FRAGMENT_ID -> {
-                binding.btnFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
-            }
+
+        if (viewModel.getSelectedUser(username) != null){
+            binding.btnFavorite.setImageResource(R.drawable.ic_baseline_remove_circle_24)
+        } else {
+            binding.btnFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
         }
-        binding.btnFavorite.setOnClickListener {
-            when (buttonCode) {
-                SEARCH_FRAGMENT_ID -> {
-                    viewModel.insert()
-                    binding.btnFavorite.setImageResource(R.drawable.ic_baseline_remove_circle_24)
-                    Toast.makeText(
-                        this,
-                        "${viewModel.userDetail.value?.login} added to favorites",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-                FAVORITE_FRAGMENT_ID -> {
-                    viewModel.delete()
-                    binding.btnFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
-                    Toast.makeText(
-                        this,
-                        "${viewModel.userDetail.value?.login} removed from favorites",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-        }
+//        when (buttonCode) {
+//            FAVORITE_FRAGMENT_ID -> {
+//                binding.btnFavorite.setImageResource(R.drawable.ic_baseline_remove_circle_24)
+//            }
+//            SEARCH_FRAGMENT_ID -> {
+//                binding.btnFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
+//            }
+//        }
+
+
+//        binding.btnFavorite.setOnClickListener {
+//            when (buttonCode) {
+//                SEARCH_FRAGMENT_ID -> {
+//                    viewModel.insert()
+//                    binding.btnFavorite.setImageResource(R.drawable.ic_baseline_remove_circle_24)
+//                    Toast.makeText(
+//                        this,
+//                        "${viewModel.userDetail.value?.login} added to favorites",
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }
+//                FAVORITE_FRAGMENT_ID -> {
+//                    viewModel.delete()
+//                    binding.btnFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
+//                    Toast.makeText(
+//                        this,
+//                        "${viewModel.userDetail.value?.login} removed from favorites",
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                }
+//            }
+//        }
     }
 
     private fun obtainViewModel(detailProfileActivity: DetailProfileActivity): DetailProfileViewModel {
@@ -103,6 +110,8 @@ class DetailProfileActivity : AppCompatActivity() {
         binding.tvLocation.text = user.location ?: "Unknown"
         binding.tvOffice.text = user.company ?: "Unknown"
         binding.tvEmail.text = user.email ?: "Unknown"
+
+        setFavoriteButton(user.login)
     }
 
     override fun onDestroy() {

@@ -45,9 +45,7 @@ class DetailProfileViewModel(application: Application) : ViewModel() {
         mFavoriteUserRepository.delete(favoriteUser)
     }
 
-    fun getAllFavorite() {
-
-    }
+    fun getSelectedUser(login: String): Favorite? = mFavoriteUserRepository.getSelectedUser(login)
 
     private fun fetchFollower() {
         val client = ApiConfig.getApiService().getUserFollower(_userDetail.value?.login)
